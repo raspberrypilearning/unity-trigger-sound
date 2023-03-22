@@ -1,59 +1,55 @@
-## Introduction
+Add the 'Player' tag to your ball. 
 
-Add project description here. What will learners be making? Broadly what skills will they be learning?
+Select the goal GameObject and go to the 'Inspector' window. 
 
-### What you will make
+Add an AudioSource component.
 
---- no-print ---
-Add instructions for interacting with the embedded content here.
+**Uncheck** 'Play On Awake'.
 
-<div class="scratch-preview">
-  <iframe allowtransparency="true" width="485" height="402" src="https://scratch.mit.edu/projects/embed/160619869/?autostart=false" frameborder="0"></iframe>
-</div>
---- /no-print ---
+In the 'Project' window, navigate to 'Assets -> Sounds'. 
 
---- print-only ---
-![Complete project](images/showcase_static.png)
---- /print-only ---
+Find a tune that you like from the 'Effects' or 'ShortTunes' folders. 
 
---- collapse ---
+With the goal selected, drag your chosen sound onto the 'AudioClip' source. This example uses the 'Finish' sound from the 'ShortTunes' folder. 
+
+![The inspector showing the 'Finish' sound in the 'AudioClip' box.](images/finish-sound.png)
+
+With the goal GameObject selected. Go to the 'Inspector' window and add a new script component called 'FinishEffects'.
+
+Open the 'FinishEffects' script and enter the following code to play a sound when a player reaches the end platform. 
+
+--- code ---
 ---
-title: What you will need
----
-### Hardware
-
-+ A computer or tablet capable of running Scratch 3
-
-### Software
-
-+ Scratch 3 (either [online](https://scratch.mit.edu/){:target="_blank"} or [offline](https://scratch.mit.edu/download){:target="_blank"})
-+ Python 3
-+ This project can be completed in a web browser using [trinket.io](https://trinket.io/)
-
-### Downloads
-
-+ Download the project [starter file](https://rpf.io/p/en/projectName-go){:target="_blank"} if working offline
-
---- /collapse ---
-
---- collapse ---
----
-title: What you will learn
+language: cs
+filename: FinishEffects.cs
+line_numbers: true
+line_number_start: 1
+line_highlights: 
 ---
 
-+ Learning objective 1
-+ Learning objective 2
-+ Learning objective 3
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
---- /collapse ---
 
---- collapse ---
----
-title: Additional information for educators
----
+public class FinishEffects : MonoBehaviour
+{
+   AudioSource audioSource;
 
-You can download the completed project [here](https://rpf.io/p/en/projectName-get){:target="_blank"}.
+   void Start()
+   {
+       audioSource = this.gameObject.GetComponent<AudioSource>();
+   }
 
-If you need to print this project, please use the [printer-friendly version](https://projects.raspberrypi.org/en/projects/projectName/print){:target="_blank"}.
 
---- /collapse ---
+   void OnCollisionEnter(Collision other)
+   {
+       if (other.gameObject.tag == "Player")
+       {
+           audioSource.Play();
+       }
+   }
+}
+
+
+--- /code ---
